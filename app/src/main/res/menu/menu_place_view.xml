@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.austinfay.beenthere.PlaceViewActivity">
+
+    <item android:id="@+id/action_share_edited_place" android:icon="@android:drawable/ic_menu_share"
+        android:orderInCategory="100" app:showAsAction="ifRoom"
+        android:title="@string/action_share"/>
+
+    <item android:id="@+id/action_edit_place" android:icon="@android:drawable/ic_menu_edit"
+        android:orderInCategory="100" app:showAsAction="ifRoom"
+        android:title="@string/action_edit"/>
+
+    <item android:id="@+id/action_delete_edited_place" android:icon="@drawable/delete_button_white"
+        android:orderInCategory="100" app:showAsAction="never"
+        android:title="@string/action_delete"/>
+
+</menu>

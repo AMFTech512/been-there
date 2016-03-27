@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Been There</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_section1">Select Map</string>
+    <string name="title_section2">Saved Places</string>
+    <string name="save_location_button_text">Save my location!</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="title_activity_save_location">New Location</string>
+    <string name="action_save_string">Save</string>
+    <string name="title_activity_places">My Locations</string>
+    <string name="title_activity_place_view">Edit Location</string>
+    <string name="save_location_textview_name">Name</string>
+    <string name="save_location_textview_latitude">Latitude</string>
+    <string name="save_location_textview_longitude">Longitude</string>
+    <string name="save_location_textview_address">Search</string>
+    <string name="save_location_button_get_current_location">Get my current location</string>
+    <string name="action_delete_location">DELETE LOCATION</string>
+    <string name="action_delete">Delete</string>
+    <string name="title_activity_place_edit">null</string>
+    <string name="save_location_color_textview">Color</string>
+    <string name="action_share">Share</string>
+    <string name="places_activity_no_items">You don\'t have any places yet! Go back to the map to add some</string>
+    <string name="title_activity_splash">Been there</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_edit">Edit</string>
+    <string name="title_activity_about">About Been There</string>
+    <string name="version_no">Version 1.1</string>
+    <string name="coded_by">Designed and Coded By Austin Fay</string>
+
+</resources>

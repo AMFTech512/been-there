@@ -1,0 +1,226 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="0dp"
+    tools:context="com.austinfay.beenthere.SaveLocationActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/scrollView2" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingLeft="15dp"
+                android:paddingRight="30dp">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:background="#ffc4bdbc"
+                    android:paddingLeft="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/save_location_textview_name" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="8dp">
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:padding="5dp">
+
+                    <EditText
+                        android:layout_width="210dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/name_edittext"
+                        android:singleLine="true" />
+
+                        <Button
+                            android:id="@+id/clr_name_edittext"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:background="@android:drawable/ic_menu_close_clear_cancel" />
+
+                    </FrameLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffc4bdbc"
+                    android:paddingLeft="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/save_location_textview_address" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="8dp">
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:ems="10"
+                        android:id="@+id/address_edittext"
+                        android:singleLine="true" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/search_button_save_location"
+                        android:src="@android:drawable/ic_menu_search" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffc4bdbc"
+                    android:paddingLeft="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/save_location_textview_latitude" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
+                        android:textSize="10pt"
+                        android:ems="10"
+                        android:id="@+id/latitude_textview"
+                        android:textColor="#ff000000" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffc4bdbc"
+                    android:paddingLeft="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/save_location_textview_longitude" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="10pt"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:id="@+id/longitude_textview"
+                        android:textColor="#ff000000" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Choose Color"
+                        android:id="@+id/save_location_color_button"
+                        android:textColor="#ffffff" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/save_location_button_get_current_location"
+                        android:textAllCaps="true"
+                        android:layout_weight="1"
+                        android:id="@+id/get_location_button" />
+                </TableRow>
+            </TableLayout>
+
+            </TableLayout>
+    </ScrollView>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/map_preview_save_location"
+            android:name="com.google.android.gms.maps.MapFragment" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/google_attr_img_save_location_activity"
+            android:layout_gravity="right|bottom"
+            android:src="@drawable/powered_by_google_light"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"/>
+
+    </FrameLayout>
+
+
+
+
+
+
+</LinearLayout>

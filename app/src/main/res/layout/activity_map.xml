@@ -1,0 +1,56 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    tools:context=".MapActivity">
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/map_layout">
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.MapFragment" />
+
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="108dp"
+        android:textAllCaps="false"
+        style="@style/SaveLocationButton"
+        android:id="@+id/save_location_button"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="30dp" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="108dp"
+        android:textAllCaps="false"
+        style="@style/TakeSnapshotButton"
+        android:id="@+id/take_snapshot_button"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="30dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/google_attr_img_map_activity"
+        android:layout_gravity="right|bottom"
+        android:src="@drawable/powered_by_google_light"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="5dp"/>
+
+
+</FrameLayout>
+
+    <fragment android:id="@+id/navigation_drawer"
+        android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="com.austinfay.beenthere.NavigationDrawerFragment"
+        tools:layout="@layout/fragment_navigation_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

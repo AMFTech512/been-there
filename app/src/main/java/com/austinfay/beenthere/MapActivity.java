@@ -1,9 +1,7 @@
 package com.austinfay.beenthere;
 
-import android.*;
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,6 +15,7 @@ import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -25,7 +24,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.Display;
@@ -34,13 +32,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -197,11 +192,11 @@ public class MapActivity extends ActionBarActivity
 
                 } else {
 
-                    if (!new File("/sdcard/BeenThere/").exists()) {
-                        new File("/sdcard/BeenThere/").mkdir();
+                    if (!new File(Environment.getExternalStorageDirectory().getPath() + "/BeenThere/").exists()) {
+                        new File(Environment.getExternalStorageDirectory().getPath() + "/BeenThere/").mkdir();
                     }
 
-                    final String fileName = "/sdcard/BeenThere/" + System.currentTimeMillis() + ".png";
+                    final String fileName = Environment.getExternalStorageDirectory().getPath() + "/BeenThere/" + System.currentTimeMillis() + ".png";
 
                     GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
                         @Override
@@ -212,8 +207,7 @@ public class MapActivity extends ActionBarActivity
                                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
                                 outputStream.flush();
                                 outputStream.close();
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -247,9 +241,6 @@ public class MapActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-
-
 
     }
 
@@ -443,6 +434,7 @@ public class MapActivity extends ActionBarActivity
 
                         @Override
                         public void onMapClick(LatLng latLng) {
+
                             ActionBar bar = getSupportActionBar();
                             bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#212121")));
                             bar.setTitle(Html.fromHtml("<font color=\"#ffffff\">Been there</font>"));
@@ -530,11 +522,11 @@ public class MapActivity extends ActionBarActivity
 
                 if(grantResults.length >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
-                    if (!new File("/sdcard/BeenThere/").exists()) {
-                        new File("/sdcard/BeenThere/").mkdir();
+                    if (!new File(Environment.getExternalStorageDirectory().getPath() + "/BeenThere/").exists()) {
+                        new File(Environment.getExternalStorageDirectory().getPath() + "/BeenThere/").mkdir();
                     }
 
-                    final String fileName = "/sdcard/BeenThere/" + System.currentTimeMillis() + ".png";
+                    final String fileName = Environment.getExternalStorageDirectory().getPath() + "/BeenThere/" + System.currentTimeMillis() + ".png";
 
                     GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
                         @Override
@@ -545,8 +537,6 @@ public class MapActivity extends ActionBarActivity
                                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
                                 outputStream.flush();
                                 outputStream.close();
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

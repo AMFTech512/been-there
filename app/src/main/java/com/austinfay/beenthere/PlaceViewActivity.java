@@ -10,6 +10,7 @@ package com.austinfay.beenthere;
         import android.content.Intent;
         import android.content.IntentFilter;
         import android.content.pm.PackageManager;
+        import android.content.res.ColorStateList;
         import android.graphics.Bitmap;
         import android.graphics.Color;
         import android.graphics.Point;
@@ -19,7 +20,9 @@ package com.austinfay.beenthere;
         import android.net.Uri;
         import android.os.Build;
         import android.os.Environment;
+        import android.os.Handler;
         import android.provider.MediaStore;
+        import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
         import android.support.v4.app.ActivityCompat;
         import android.support.v4.content.ContextCompat;
@@ -30,6 +33,7 @@ package com.austinfay.beenthere;
         import android.text.Html;
         import android.util.Log;
         import android.view.Display;
+        import android.view.DragEvent;
         import android.view.Menu;
         import android.view.MenuItem;
         import android.view.MotionEvent;
@@ -74,7 +78,6 @@ public class PlaceViewActivity extends AppCompatActivity {
 
     Marker marker;
 
-    ScrollView scrollView;
     TableLayout infoTableLayout;
 
     AlertDialog deleteDialog;
@@ -83,6 +86,8 @@ public class PlaceViewActivity extends AppCompatActivity {
     ProgressBar loadingBar;
 
     TableRow nameTableRow, addressTableRow;
+
+    FloatingActionButton editButton;
 
     LatLng currentLatLng;
     String address, name;
@@ -117,7 +122,7 @@ public class PlaceViewActivity extends AppCompatActivity {
             googleMap.setMyLocationEnabled(false);
             googleMap.setBuildingsEnabled(true);
             googleMap.getUiSettings().setAllGesturesEnabled(true);
-            googleMap.getUiSettings().setZoomControlsEnabled(true);
+            googleMap.getUiSettings().setZoomControlsEnabled(false);
             googleMap.getUiSettings().setMapToolbarEnabled(false);
 
         } catch (Exception e) {
@@ -126,7 +131,6 @@ public class PlaceViewActivity extends AppCompatActivity {
 
         loadingDataDialog = new ProgressDialog(this);
 
-        scrollView = (ScrollView) findViewById(R.id.scrollView);
         infoTableLayout = (TableLayout) findViewById(R.id.info_table_layout_place_view);
 
         nameTableRow = (TableRow) findViewById(R.id.name_table_row_place_view);
@@ -137,23 +141,123 @@ public class PlaceViewActivity extends AppCompatActivity {
         latitudeTextView = (TextView) findViewById(R.id.latitude_textview_place_view);
         longitudeTextView = (TextView) findViewById(R.id.longitude_textview_place_view);
 
+        editButton = (FloatingActionButton) findViewById(R.id.edit_floating_button_place_view);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent editIntent = new Intent(PlaceViewActivity.this, SaveLocationActivity.class);
+                editIntent.putExtra("EDIT", true);
+                editIntent.putExtra("PLACE_ID", markerID);
+                startActivity(editIntent);
+                finish();
+
+            }
+        });
+
+        final float infoTableY= infoTableLayout.getY();
+
         nameTableRow.setOnTouchListener(new View.OnTouchListener() {
             boolean isHidden = false;
+
+            float startFingerY = 0;
+            float previousFingerY = 0;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if (isHidden) {
-                    scrollView.animate().translationY(0);
-                    googleMap.setPadding(0, 0, 0, scrollView.getHeight() + 10);
-                    isHidden = false;
-                } else {
-                    isHidden = true;
-                    scrollView.animate().translationY(scrollView.getHeight() - nameTableRow.getHeight());
-                    googleMap.setPadding(0, 0, 0, nameTableRow.getHeight() + 10);
+                /*
+
+                if(event.getAction() == MotionEvent.ACTION_UP){
+
+                    if (isHidden) {
+
+                        editButton.animate().translationY((0 - infoTableLayout.getHeight())
+                                + (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density));
+
+                        infoTableLayout.animate().translationY(0);
+
+                        googleMap.setPadding(0, 0, 0, infoTableLayout.getHeight() + 10);
+
+                        isHidden = false;
+
+                    }
+
+                } else if(event.getAction() == MotionEvent.ACTION_DOWN){
+
+                    if(!isHidden) {
+
+                        isHidden = true;
+
+                        editButton.animate().translationY((0 - infoTableLayout.getHeight()) +
+                                (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density) +
+                                (infoTableLayout.getHeight() - nameTableRow.getHeight()));
+
+                        infoTableLayout.animate().translationY(infoTableLayout.getHeight() - nameTableRow.getHeight());
+
+                        googleMap.setPadding(0, 0, 0, nameTableRow.getHeight() + 10);
+                    }
+
                 }
 
-                return false;
+                */
+
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+
+                    startFingerY = event.getRawY();
+
+                }
+
+                float translation;
+
+                if(isHidden)
+
+                    translation = (event.getRawY() - startFingerY) +
+                            infoTableLayout.getHeight() - nameTableRow.getHeight();
+
+                else
+
+                    translation = event.getRawY() - startFingerY;
+
+                if(translation >= 0)
+                    infoTableLayout.setTranslationY(translation);
+
+
+                boolean goingDown = startFingerY < event.getRawY();
+
+                if(event.getAction() == MotionEvent.ACTION_UP){
+
+                    if(goingDown){
+
+                        infoTableLayout.animate().translationY(infoTableLayout.getHeight() - nameTableRow.getHeight());
+
+                        editButton.animate().translationY((0 - infoTableLayout.getHeight()) +
+                                (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density) +
+                                (infoTableLayout.getHeight() - nameTableRow.getHeight()));
+
+                        googleMap.setPadding(0, 0, 0, nameTableRow.getHeight() + 10);
+
+                        isHidden = true;
+
+                    } else {
+
+                        infoTableLayout.animate().translationY(0);
+
+                        editButton.animate().translationY((0 - infoTableLayout.getHeight())
+                                + (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density));
+
+                        googleMap.setPadding(0, 0, 0, infoTableLayout.getHeight() + 10);
+
+                        isHidden = false;
+
+                    }
+
+                }
+
+                previousFingerY = event.getRawY();
+
+                return true;
             }
         });
 
@@ -233,7 +337,7 @@ public class PlaceViewActivity extends AppCompatActivity {
 
             name = savedInstanceState.getString("NAME");
 
-            scrollView.setTranslationY(savedInstanceState.getFloat("INFOBAR_POS"));
+            infoTableLayout.setTranslationY(savedInstanceState.getFloat("INFOBAR_POS"));
 
             CameraPosition pos = savedInstanceState.getParcelable("CAMERA_POS");
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(pos));
@@ -327,7 +431,7 @@ public class PlaceViewActivity extends AppCompatActivity {
 
         outState.putString("NAME", nameTextView.getText().toString());
 
-        outState.putFloat("INFOBAR_POS", scrollView.getTranslationY());
+        outState.putFloat("INFOBAR_POS", infoTableLayout.getTranslationY());
 
         database.close();
     }
@@ -462,15 +566,6 @@ public class PlaceViewActivity extends AppCompatActivity {
 
                 return true;
 
-            case R.id.action_edit_place:
-
-                Intent editIntent = new Intent(PlaceViewActivity.this, SaveLocationActivity.class);
-                editIntent.putExtra("EDIT", true);
-                editIntent.putExtra("PLACE_ID", markerID);
-                startActivity(editIntent);
-                finish();
-
-                return true;
 
             case android.R.id.home:
 
@@ -544,7 +639,7 @@ public class PlaceViewActivity extends AppCompatActivity {
 
                 } else {
 
-                    Snackbar.make(scrollView, "Oops! Can't save your screenshot without your permission!",
+                    Snackbar.make(infoTableLayout, "Oops! Can't save your screenshot without your permission!",
                             Snackbar.LENGTH_LONG).show();
 
                 }
@@ -567,12 +662,34 @@ public class PlaceViewActivity extends AppCompatActivity {
 
     public void moveGoogleCam(final LatLng location, final boolean animate){
 
-        scrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        infoTableLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
-                googleMap.setPadding(0, 0, 0, scrollView.getHeight() + 10);
-                Log.d("ScrollView height:", Integer.toString(scrollView.getHeight()));
+                googleMap.setPadding(0, 0, 0, infoTableLayout.getHeight() + 10);
+                Log.d("ScrollView height:", Integer.toString(infoTableLayout.getHeight()));
+
+                editButton.setTranslationY((0 - infoTableLayout.getHeight()) + (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density));
+
+                /*int[][] states = new int[][] {
+                        new int[] { android.R.attr.state_enabled}, // enabled
+                        new int[] {-android.R.attr.state_enabled}, // disabled
+                        new int[] {-android.R.attr.state_checked}, // unchecked
+                        new int[] { android.R.attr.state_pressed}  // pressed
+                };
+
+                float colorOff[] = new float[3];
+                Color.colorToHSV(color, colorOff);
+                colorOff[2] = (float) (colorOff[2] - 0.25);
+
+                int[] colors = new int[] {
+                        Color.HSVToColor(colorOff),
+                        Color.HSVToColor(colorOff),
+                        Color.HSVToColor(colorOff),
+                        Color.HSVToColor(colorOff)
+                };
+
+                editButton.setBackgroundTintList(new ColorStateList(states, colors));*/
 
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 LatLng top = new LatLng(location.latitude + .01, location.longitude);
@@ -600,7 +717,7 @@ public class PlaceViewActivity extends AppCompatActivity {
 
                 }
 
-                ViewTreeObserver obs = scrollView.getViewTreeObserver();
+                ViewTreeObserver obs = infoTableLayout.getViewTreeObserver();
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     obs.removeOnGlobalLayoutListener(this);

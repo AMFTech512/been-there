@@ -1086,7 +1086,7 @@ public class SaveLocationActivity extends AppCompatActivity {
             googleMap.getUiSettings().setZoomControlsEnabled(true);
             googleMap.getUiSettings().setMapToolbarEnabled(false);
 
-            googleMap.setPadding(0, 0, 0, 30);
+            googleMap.setPadding(0, 0, 0, 10);
 
             googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override

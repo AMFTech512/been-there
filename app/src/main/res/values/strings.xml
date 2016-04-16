@@ -29,7 +29,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_edit">Edit</string>
     <string name="title_activity_about">About Been There</string>
-    <string name="version_no">Version 1.1.1</string>
-    <string name="coded_by">© 2016 Austin Fay</string>
+    <string name="version_no">Version 1.1.2</string>
+    <string name="coded_by">Copyright ©2016 Austin Fay</string>
 
 </resources>

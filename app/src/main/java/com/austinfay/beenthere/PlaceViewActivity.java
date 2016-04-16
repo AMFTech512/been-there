@@ -156,8 +156,6 @@ public class PlaceViewActivity extends AppCompatActivity {
             }
         });
 
-        final float infoTableY= infoTableLayout.getY();
-
         nameTableRow.setOnTouchListener(new View.OnTouchListener() {
             boolean isHidden = false;
 
@@ -174,7 +172,7 @@ public class PlaceViewActivity extends AppCompatActivity {
                     if (isHidden) {
 
                         editButton.animate().translationY((0 - infoTableLayout.getHeight())
-                                + (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density));
+                                + (editButton.getHeight() / 2));
 
                         infoTableLayout.animate().translationY(0);
 
@@ -191,7 +189,7 @@ public class PlaceViewActivity extends AppCompatActivity {
                         isHidden = true;
 
                         editButton.animate().translationY((0 - infoTableLayout.getHeight()) +
-                                (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density) +
+                                (editButton.getHeight() / 2) +
                                 (infoTableLayout.getHeight() - nameTableRow.getHeight()));
 
                         infoTableLayout.animate().translationY(infoTableLayout.getHeight() - nameTableRow.getHeight());
@@ -233,7 +231,7 @@ public class PlaceViewActivity extends AppCompatActivity {
                         infoTableLayout.animate().translationY(infoTableLayout.getHeight() - nameTableRow.getHeight());
 
                         editButton.animate().translationY((0 - infoTableLayout.getHeight()) +
-                                (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density) +
+                                (editButton.getHeight() / 2) +
                                 (infoTableLayout.getHeight() - nameTableRow.getHeight()));
 
                         googleMap.setPadding(0, 0, 0, nameTableRow.getHeight() + 10);
@@ -245,7 +243,7 @@ public class PlaceViewActivity extends AppCompatActivity {
                         infoTableLayout.animate().translationY(0);
 
                         editButton.animate().translationY((0 - infoTableLayout.getHeight())
-                                + (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density));
+                                + (editButton.getHeight() / 2));
 
                         googleMap.setPadding(0, 0, 0, infoTableLayout.getHeight() + 10);
 
@@ -669,7 +667,7 @@ public class PlaceViewActivity extends AppCompatActivity {
                 googleMap.setPadding(0, 0, 0, infoTableLayout.getHeight() + 10);
                 Log.d("ScrollView height:", Integer.toString(infoTableLayout.getHeight()));
 
-                editButton.setTranslationY((0 - infoTableLayout.getHeight()) + (30 / PlaceViewActivity.this.getResources().getDisplayMetrics().density));
+                editButton.setTranslationY((0 - infoTableLayout.getHeight()) + (editButton.getHeight() / 2));
 
                 /*int[][] states = new int[][] {
                         new int[] { android.R.attr.state_enabled}, // enabled

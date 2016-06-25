@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -18,6 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -99,7 +101,8 @@ public class SaveLocationActivity extends AppCompatActivity {
 
     EditText nameEditText, addressEditText;
     TextView latitudeTextView, longitudeTextView;
-    Button getLocationButton, colorButton, clrNameTextButton;
+    ImageButton clrNameTextButton;
+    FloatingActionButton getLocationButton, colorButton;
     ImageButton searchButton;
     AmbilWarnaDialog colorDialog;
 
@@ -155,7 +158,7 @@ public class SaveLocationActivity extends AppCompatActivity {
 
         colorDialogShowing = false;
 
-        colorButton = (Button) findViewById(R.id.save_location_color_button);
+        colorButton = (FloatingActionButton) findViewById(R.id.save_location_color_button);
         colorButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -185,7 +188,7 @@ public class SaveLocationActivity extends AppCompatActivity {
             }
         });
 
-        clrNameTextButton = (Button) findViewById(R.id.clr_name_edittext);
+        clrNameTextButton = (ImageButton) findViewById(R.id.clr_name_edittext);
         clrNameTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,7 +208,7 @@ public class SaveLocationActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        getLocationButton = (Button) findViewById(R.id.get_location_button);
+        getLocationButton = (FloatingActionButton) findViewById(R.id.get_location_button);
         searchButton = (ImageButton) findViewById(R.id.search_button_save_location);
 
         nameEditText.addTextChangedListener(new TextWatcher() {
@@ -327,6 +330,24 @@ public class SaveLocationActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.HSVToColor(colorOff));
 
         colorButton.setBackgroundColor(myColor);
+
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+        };
+
+        int[] colors = new int[] {
+                myColor,
+                myColor,
+                myColor,
+                myColor
+        };
+
+        ColorStateList myList = new ColorStateList(states, colors);
+
+        colorButton.setBackgroundTintList(myList);
 
         /*float colorHSV[] = new float[3];
         Color.colorToHSV(myColor, colorHSV);

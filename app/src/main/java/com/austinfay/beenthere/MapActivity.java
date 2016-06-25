@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -66,7 +67,7 @@ public class MapActivity extends ActionBarActivity
 
     public NavigationDrawerFragment mNavigationDrawerFragment;
 
-    Button saveLocationButton, shareSnapshotButton;
+    FloatingActionButton saveLocationButton, shareSnapshotButton;
 
     public static final int GPS_PERMISSION_REQUEST_CODE = 1;
     public static final int READ_WRITE_EXTERNAL_STORAGE = 2;
@@ -110,8 +111,8 @@ public class MapActivity extends ActionBarActivity
 
         googleAttr = (ImageView) findViewById(R.id.google_attr_img_map_activity);
 
-        saveLocationButton = (Button) findViewById(R.id.save_location_button);
-        shareSnapshotButton = (Button) findViewById(R.id.take_snapshot_button);
+        saveLocationButton = (FloatingActionButton) findViewById(R.id.save_location_button);
+        shareSnapshotButton = (FloatingActionButton) findViewById(R.id.take_snapshot_button);
 
         if(apiAvailability.isGooglePlayServicesAvailable(MapActivity.this) == ConnectionResult.API_UNAVAILABLE){
 

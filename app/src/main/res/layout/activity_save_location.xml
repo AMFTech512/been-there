@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="0dp"
     tools:context="com.austinfay.beenthere.SaveLocationActivity">
@@ -28,25 +29,19 @@
                     android:background="#ffc4bdbc"
                     android:paddingLeft="10dp">
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/save_location_textview_name" />
+
                 </TableRow>
 
                 <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:padding="8dp">
-
-                    <FrameLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:padding="5dp">
 
                     <EditText
                         android:layout_width="210dp"
@@ -55,15 +50,14 @@
                         android:id="@+id/name_edittext"
                         android:singleLine="true" />
 
-                        <Button
+                        <ImageButton
                             android:id="@+id/clr_name_edittext"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_gravity="right|center_vertical"
-                            android:background="@android:drawable/ic_menu_close_clear_cancel" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="invisible"
+                            android:backgroundTint="#FAFAFA"
+                            android:src="@drawable/ic_close_black_24dp" />
 
-                    </FrameLayout>
                 </TableRow>
 
                 <TableRow
@@ -164,36 +158,11 @@
                         android:textColor="#ff000000" />
                 </TableRow>
 
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Choose Color"
-                        android:id="@+id/save_location_color_button"
-                        android:textColor="#ffffff" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/save_location_button_get_current_location"
-                        android:textAllCaps="true"
-                        android:layout_weight="1"
-                        android:id="@+id/get_location_button" />
-                </TableRow>
             </TableLayout>
 
             </TableLayout>
+
     </ScrollView>
-
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -207,6 +176,12 @@
             android:id="@+id/map_preview_save_location"
             android:name="com.google.android.gms.maps.MapFragment" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@drawable/drop_shadow" >
+        </View>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -215,6 +190,26 @@
             android:src="@drawable/powered_by_google_light"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="10dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/save_location_color_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_color_lens_white_36dp"
+            android:layout_gravity="left|bottom"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="120dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/get_location_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_gps_fixed_black_24dp"
+            app:backgroundTint="#ffffff"
+            android:layout_gravity="left|bottom"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="45dp"/>
 
     </FrameLayout>
 

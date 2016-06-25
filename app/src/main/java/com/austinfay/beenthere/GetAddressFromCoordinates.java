@@ -85,13 +85,58 @@ public class GetAddressFromCoordinates extends IntentService {
 
             JSONObject jsonObject;
 
+            String defaultAddress = null;
+
             try {
 
                 jsonObject = new JSONObject(stringBuilder.toString());
 
+                defaultAddress = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
+
+                String addressParts[] = new String[3];
+
+                for(int i = 0; i <= jsonObject.getJSONArray("results").getJSONObject(0).length(); i++){
+
+                    String type = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components")
+                            .getJSONObject(i).getJSONArray("types").getString(0);
+
+                    switch (type){
+
+                        case "locality":
+
+                            addressParts[0] = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components")
+                                    .getJSONObject(i).getString("long_name");
+                            break;
+
+                        case "administrative_area_level_1":
+
+                            addressParts[1] = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components")
+                                    .getJSONObject(i).getString("long_name");
+                            break;
+
+                        default:
+
+                            addressParts[2] = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
+                            break;
+
+                    }
+
+                }
+
+                String address = null;
+
+                if(!addressParts[0].equals("") || !addressParts[1].equals("")){
+
+                    address = addressParts[0] + ", " + addressParts[1];
+
+                } else {
+
+                    address = addressParts[2];
+                }
+
+                /*
                 String types = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("types").getString(0);
                 Log.d("Type", types);
-                String address = null;
 
                 String [] useAddress = {"street_address", "locality", "administrative_area_level_1", "political", "country"};
 
@@ -102,6 +147,8 @@ public class GetAddressFromCoordinates extends IntentService {
                     }
 
                 }
+
+                */
 
                 if(address == null){
 
@@ -115,6 +162,8 @@ public class GetAddressFromCoordinates extends IntentService {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.d("Address from Google", defaultAddress);
+                broadcastIntent.putExtra("ADDRESS", defaultAddress);
             }
 
         sendBroadcast(broadcastIntent);

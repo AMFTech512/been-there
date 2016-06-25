@@ -1,67 +1,68 @@
 package com.austinfay.beenthere;
 
-        import android.*;
-        import android.app.AlertDialog;
-        import android.app.ProgressDialog;
-        import android.content.BroadcastReceiver;
-        import android.content.ContentValues;
-        import android.content.Context;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.IntentFilter;
-        import android.content.pm.PackageManager;
-        import android.content.res.ColorStateList;
-        import android.graphics.Bitmap;
-        import android.graphics.Color;
-        import android.graphics.Point;
-        import android.graphics.drawable.ColorDrawable;
-        import android.net.ConnectivityManager;
-        import android.net.NetworkInfo;
-        import android.net.Uri;
-        import android.os.Build;
-        import android.os.Environment;
-        import android.os.Handler;
-        import android.provider.MediaStore;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v4.content.ContextCompat;
-        import android.support.v7.app.ActionBar;
-        import android.support.v7.app.ActionBarActivity;
-        import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
-        import android.text.Html;
-        import android.util.Log;
-        import android.view.Display;
-        import android.view.DragEvent;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.MotionEvent;
-        import android.view.View;
-        import android.view.ViewTreeObserver;
-        import android.view.Window;
-        import android.view.WindowManager;
-        import android.widget.ProgressBar;
-        import android.widget.ScrollView;
-        import android.widget.TableLayout;
-        import android.widget.TableRow;
-        import android.widget.TextView;
-        import com.google.android.gms.maps.CameraUpdate;
-        import com.google.android.gms.maps.CameraUpdateFactory;
-        import com.google.android.gms.maps.GoogleMap;
-        import com.google.android.gms.maps.MapFragment;
-        import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-        import com.google.android.gms.maps.model.CameraPosition;
-        import com.google.android.gms.maps.model.LatLng;
-        import com.google.android.gms.maps.model.LatLngBounds;
-        import com.google.android.gms.maps.model.Marker;
-        import com.google.android.gms.maps.model.MarkerOptions;
+import android.*;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.util.Log;
+import android.view.Display;
+import android.view.DragEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
-        import java.io.File;
-        import java.io.FileNotFoundException;
-        import java.io.FileOutputStream;
-        import java.io.IOException;
-        import java.util.HashMap;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
 
 
 public class PlaceViewActivity extends AppCompatActivity {
@@ -119,6 +120,7 @@ public class PlaceViewActivity extends AppCompatActivity {
                 googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map_preview_place_view)).getMap();
 
             }
+
             googleMap.setMyLocationEnabled(false);
             googleMap.setBuildingsEnabled(true);
             googleMap.getUiSettings().setAllGesturesEnabled(true);
@@ -218,9 +220,8 @@ public class PlaceViewActivity extends AppCompatActivity {
 
                     translation = event.getRawY() - startFingerY;
 
-                if(translation >= 0)
-                    infoTableLayout.setTranslationY(translation);
 
+                infoTableLayout.setTranslationY(translation);
 
                 boolean goingDown = startFingerY < event.getRawY();
 
@@ -260,9 +261,6 @@ public class PlaceViewActivity extends AppCompatActivity {
         });
 
 
-
-
-
         loadingBar = (ProgressBar) findViewById(R.id.progressBar_place_view);
         loadingBar.setVisibility(View.GONE);
 
@@ -287,6 +285,11 @@ public class PlaceViewActivity extends AppCompatActivity {
         float colorOff[] = new float[3];
         Color.colorToHSV(color, colorOff);
         colorOff[2] = (float) (colorOff[2] - 0.15);
+
+        float fabColor[] = colorOff.clone();
+        fabColor[1] = 1;
+        fabColor[2] = 1;
+
         if(Build.VERSION.SDK_INT >= 21)
             getWindow().setStatusBarColor(Color.HSVToColor(colorOff));
 
